@@ -56,7 +56,7 @@ export default function PreferencesScreen({ navigation }: SignInStackScreenProps
     const [kitchen, setKitchen] = React.useState(false);
 
     return (
-        <ScrollView alwaysBounceVertical={false} backgroundColor="rgba(255, 255, 255, 0.42);">
+        <ScrollView alwaysBounceVertical={false} backgroundColor="rgba(255, 255, 255, 1);">
             <Box safeArea flex={1} p="5" py="10" width="100%" mx="auto" style={styles.container}>
                 <Heading textAlign="center">Hi Alex!</Heading>
                 <Heading textAlign="center">What is your goal?</Heading>
@@ -71,7 +71,7 @@ export default function PreferencesScreen({ navigation }: SignInStackScreenProps
                     <GoalButton text="Reduce Food Waste" image={recycle} state={waste} onPress={() => {
                         setWaste(!waste);
                     }} />
-                    <GoalButton text="Organize Your Kitchen Better" image={fridge} state={kitchen} onPress={() => {
+                    <GoalButton text="Achieve a Healthier Lifestyle" image={fridge} state={kitchen} onPress={() => {
                         setKitchen(!kitchen);
                     }} />
                     <Button mt="5" width="25%" height="10"
@@ -94,7 +94,7 @@ const styles = StyleSheet.create({
     container: {
         paddingTop: 80,
         justifyContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.42);',
+        backgroundColor: 'rgba(255, 255, 255, 1);',
     },
     title: {
         fontSize: 20,

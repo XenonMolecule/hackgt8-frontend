@@ -76,8 +76,19 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
     });
 
 
-    const nextScreen = () => {
-        // TODO: make API request to backend to update user
+    const nextScreen = async () => {
+        let params: any = route.params;
+        let dietaryRestrictions = Object.keys(dietary).filter((key: any) => {return dietary[key]});
+        let allergens = Object.keys(allergen).filter((key: any) => {return allergen[key]});
+        let data = {
+            sustainable: params.waste,
+            healthy: params.kitchen,
+            personalized: params.recipes,
+            dietaryRestrictions,
+            allergens,
+        };
+        
+        await updateUser(data);
 
         navigation.navigate("Root");
     }
