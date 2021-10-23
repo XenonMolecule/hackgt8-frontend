@@ -56,7 +56,7 @@ export default function PreferencesScreen({ navigation }: SignInStackScreenProps
     const [kitchen, setKitchen] = React.useState(false);
 
     return (
-        <ScrollView alwaysBounceVertical={false} backgroundColor="rgba(255, 255, 255, 0.42);">
+        <ScrollView alwaysBounceVertical={false} backgroundColor="rgba(255, 255, 255, 1);">
             <Box safeArea flex={1} p="5" py="10" width="100%" mx="auto" style={styles.container}>
                 <Heading textAlign="center">Hi Alex!</Heading>
                 <Heading textAlign="center">What is your goal?</Heading>
@@ -93,7 +93,7 @@ export default function PreferencesScreen({ navigation }: SignInStackScreenProps
 const styles = StyleSheet.create({
     container: {
         justifyContent: 'center',
-        backgroundColor: 'rgba(255, 255, 255, 0.42);',
+        backgroundColor: 'rgba(255, 255, 255, 1);',
     },
     title: {
         fontSize: 20,

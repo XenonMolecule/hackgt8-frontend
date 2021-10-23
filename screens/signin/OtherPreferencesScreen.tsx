@@ -76,16 +76,19 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
     });
 
 
-    const nextScreen = () => {
+    const nextScreen = async () => {
         let params: any = route.params;
         let dietaryRestrictions = Object.keys(dietary).filter((key: any) => {return dietary[key]});
-        console.log(dietaryRestrictions);
+        let allergens = Object.keys(allergen).filter((key: any) => {return allergen[key]});
         let data = {
             sustainable: params.waste,
             healthy: params.kitchen,
             personalized: params.recipes,
-            dietaryRestrictions
+            dietaryRestrictions,
+            allergens,
         };
+        
+        await updateUser(data);
 
         navigation.navigate("Root");
     }
