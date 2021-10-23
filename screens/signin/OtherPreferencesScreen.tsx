@@ -85,7 +85,7 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
 
     return (
         <ScrollView alwaysBounceVertical={false}>
-            <Box safeArea flex={1} width="100%" mx="auto" style={styles.container}>
+            <Box safeArea flex={1} width="100%" mx="auto" backgroundColor="#F5FBF5" style={styles.container}>
                 <Heading textAlign="center" mx="3" fontSize="2xl">Pick your preferences and dietary restrictions!</Heading>
 
                 <VStack space={3} py="5" mt="5" backgroundColor="#F5FBF5" rounded="3xl">
@@ -151,8 +151,9 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 80,
         justifyContent: 'center',
-        backgroundColor: '#FFF',
+        backgroundColor: '#F5FBF5',
     },
     title: {
         fontSize: 20,
