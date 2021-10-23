@@ -77,7 +77,15 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
 
 
     const nextScreen = () => {
-        // TODO: make API request to backend to update user
+        let params: any = route.params;
+        let dietaryRestrictions = Object.keys(dietary).filter((key: any) => {return dietary[key]});
+        console.log(dietaryRestrictions);
+        let data = {
+            sustainable: params.waste,
+            healthy: params.kitchen,
+            personalized: params.recipes,
+            dietaryRestrictions
+        };
 
         navigation.navigate("Root");
     }

@@ -46,7 +46,8 @@ let _loginWithAuth0 = async (navigation: any) => {
             await addUser();
             navigation.navigate("Preferences");
         } else {
-            navigation.navigate("Root");
+            //navigation.navigate("Root");
+            navigation.navigate("Preferences");
         }
     }
 };
