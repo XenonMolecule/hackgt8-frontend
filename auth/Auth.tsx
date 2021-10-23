@@ -1,6 +1,6 @@
 import * as AuthSession from 'expo-auth-session';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { getUser } from './API';
+import { addUser, getUser } from './API';
 
 const auth0Domain = 'dev-ajdj9ych.us.auth0.com';
 const auth0ClientId = 'fjcKa6mU6vZym8CPDCGJzMYAeYwsYfPq';
@@ -43,6 +43,7 @@ let _loginWithAuth0 = async (navigation: any) => {
         await storeToken(token);
         let user = (await getUser()).user;
         if (!user) {
+            await addUser();
             navigation.navigate("Preferences");
         } else {
             navigation.navigate("Root");

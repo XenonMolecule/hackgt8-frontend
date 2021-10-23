@@ -22,6 +22,7 @@ import {
     ScrollView,
 } from 'native-base';
 import _loginWithAuth0 from '../../auth/Auth';
+import { updateUser } from '../../auth/API';
 
 function PreferButton(props: any) {
     return (
