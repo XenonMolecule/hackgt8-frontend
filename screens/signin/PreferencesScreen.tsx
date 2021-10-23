@@ -15,6 +15,7 @@ import {
     Link,
     Button,
     ChevronRightIcon,
+    Icon,
     IconButton,
     HStack,
     Divider,
@@ -22,26 +23,27 @@ import {
     ScrollView,
 } from 'native-base';
 import _loginWithAuth0 from '../../auth/Auth';
+import { Ionicons } from "@expo/vector-icons";
 
 function GoalButton(props: any) {
     return (
         <Button
-            mt="2"
+            mx="5"
             colorScheme="emerald"
             _text={{ color: 'black', fontSize: 'lg', textAlign: 'center' }}
             rounded="3xl"
             size="lg"
-            height="48"
+            height="26%"
             opacity={props.state ? 1 : 0.5}
+            shadow={props.state ? "9" : undefined}
             {...props}>
-            <Image mb="5" source={props.image ? props.image : undefined} alt="image" resizeMode="contain" size="lg" alignSelf="center" />
+            <Image source={props.image ? props.image : undefined} alt="image" resizeMode="contain" size="lg" alignSelf="center" />
             {props.text}
         </Button>
     );
 }
 
 function nextScreen(navigation: any, recipes: boolean, waste: boolean, kitchen: boolean) {
-    console.log({ recipes, waste, kitchen });
     navigation.navigate("OtherPreferences", { recipes, waste, kitchen });
 }
 
@@ -55,7 +57,7 @@ export default function PreferencesScreen({ navigation }: SignInStackScreenProps
 
     return (
         <ScrollView alwaysBounceVertical={false} backgroundColor="rgba(180, 231, 180, 0.42);">
-            <Box safeArea flex={1} p="5" width="100%" mx="auto" style={styles.container}>
+            <Box safeArea flex={1} p="5" py="10" width="100%" mx="auto" style={styles.container}>
                 <Heading textAlign="center">Hi Alex!</Heading>
                 <Heading textAlign="center">What is your goal?</Heading>
                 <Heading fontSize="md" mt="3" textAlign="center">Pick the preferences you want to
@@ -72,15 +74,15 @@ export default function PreferencesScreen({ navigation }: SignInStackScreenProps
                     <GoalButton text="Organize Your Kitchen Better" image={fridge} state={kitchen} onPress={() => {
                         setKitchen(!kitchen);
                     }} />
-                    <Button mt="5" mb="10" width="25%" height="10"
+                    <Button mt="5" width="25%" height="10"
                         backgroundColor='#AEDDCF'
                         size="lg"
-                        _text={{ color: 'black' }}
+                        _text={{ color: 'black', }}
                         alignSelf="flex-end"
-                        alignItems="baseline"
                         rounded="xl"
-                        onPress={() => { nextScreen(navigation, recipes, waste, kitchen); }}>
-                        <Text fontSize="md">Next<ChevronRightIcon size="8" /></Text>
+                        onPress={() => { nextScreen(navigation, recipes, waste, kitchen); }}
+                        endIcon={<Icon as={Ionicons} name="chevron-forward" size="sm" />}>
+                        Next
                     </Button>
                 </VStack>
             </Box>
