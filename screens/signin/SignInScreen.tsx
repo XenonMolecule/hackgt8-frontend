@@ -20,46 +20,22 @@ import {
   Divider,
   Image,
 } from 'native-base';
+import _loginWithAuth0 from '../../auth/Auth';
 
 export default function SignInScreen({ navigation }: SignInStackScreenProps<'LogIn'>) {
   const logo = require('../../assets/images/mindfulbytes.png');
 
   return (
-      <Box safeArea flex={1} p="5" py="8" width="100%" mx="auto" style={styles.container}>
-        <Image size="xl" alignSelf="center" source={logo ? logo : undefined} alt="Logo" />
+    <Box safeArea flex={1} p="5" py="8" width="100%" mx="auto" style={styles.container}>
+      <Image size="xl" alignSelf="center" source={logo ? logo : undefined} alt="Logo" />
 
-        <VStack space={3} mt="5">
-          <FormControl>
-            <Input placeholder="Email" size="lg" keyboardType="email-address" />
-          </FormControl>
-          <FormControl>
-            <Input type="password" placeholder="Password" size="lg" />
-            <Link
-              _text={{ fontSize: 'xs', fontWeight: '500', color: 'indigo.500' }}
-              alignSelf="flex-end"
-              mt="1">
-              Forgot Your Password?
-            </Link>
-          </FormControl>
-          <Button mt="2" colorScheme="lime" _text={{ color: 'white' }} rounded="full" size="lg">
-            Login
-          </Button>
-          <HStack mt="6" justifyContent="center">
-            <Text fontSize="sm" color="muted.700" fontWeight={400}>
-              New to Mindful Bytes?{' '}
-            </Text>
-            <Link
-              _text={{
-                color: 'indigo.500',
-                fontWeight: 'medium',
-                fontSize: 'sm',
-              }}
-              href="#">
-              Sign Up
-            </Link>
-          </HStack>
-        </VStack>
-      </Box>
+      <VStack space={3} mt="20">
+        <Button mt="2" colorScheme="lime" _text={{ color: 'white' }} rounded="full" size="lg"
+          onPress={() => {_loginWithAuth0(navigation)}}>
+          Login/Signup
+        </Button>
+      </VStack>
+    </Box>
   );
 }
 

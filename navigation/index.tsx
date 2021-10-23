@@ -20,6 +20,8 @@ import SignInScreen from '../screens/signin/SignInScreen';
 import RegisterScreen from '../screens/signin/RegisterScreen';
 import { RootStackParamList, RootTabParamList, RootTabScreenProps, SignInStackParamList } from '../types';
 import LinkingConfiguration from './LinkingConfiguration';
+import PreferencesScreen from '../screens/signin/PreferencesScreen';
+import OtherPreferencesScreen from '../screens/signin/OtherPreferencesScreen';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
@@ -108,9 +110,18 @@ const SignIn = createNativeStackNavigator<SignInStackParamList>();
 
 function SignInNavigator() {
   return (
-    <SignIn.Navigator>
+    <SignIn.Navigator screenOptions={{
+      headerStyle: {
+        backgroundColor: 'rgba(180, 231, 180, 0.42);',
+      },
+      headerShadowVisible: false,
+      headerTitle: '',
+      headerBackTitle: '',
+      headerTintColor: '#84cc16',
+    }}>
       <SignIn.Screen name="LogIn" component={SignInScreen} options={{ headerShown: false }} />
-      <SignIn.Screen name="Register" component={RegisterScreen} options={{ headerShown: false }} />
+      <SignIn.Screen name="Preferences" component={PreferencesScreen} options={{ headerShown: false }} />
+      <SignIn.Screen name="OtherPreferences" component={OtherPreferencesScreen} options={{ headerShown: false }} />
     </SignIn.Navigator>
   );
 }

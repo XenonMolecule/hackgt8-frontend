@@ -36,9 +36,14 @@ const linking: LinkingOptions<RootStackParamList> = {
               SignInScreen: 'signin',
             },
           },
-          Register: {
+          Preferences: {
             screens: {
-              RegisterScreen: 'register',
+              PreferencesScreen: 'preferences',
+            }
+          },
+          OtherPreferences: {
+            screens: {
+              OtherPreferencesScreen: 'other',
             }
           }
         }

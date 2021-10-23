@@ -37,7 +37,8 @@ export type RootTabScreenProps<Screen extends keyof RootTabParamList> = Composit
 
 export type SignInStackParamList = {
   LogIn: undefined;
-  Register: undefined;
+  Preferences: undefined;
+  OtherPreferences: undefined;
 };
 
 export type SignInStackScreenProps<Screen extends keyof SignInStackParamList> = NativeStackScreenProps<
