@@ -25,9 +25,10 @@ let _loginWithAuth0 = async (navigation: any) => {
     const redirectUrl = AuthSession.makeRedirectUri({ useProxy: true });
     let authUrl = `https://${auth0Domain}/authorize?` + objectToQueryString({
         client_id: auth0ClientId,
-        response_type: 'token',
+        response_type: 'id_token',
         scope: 'openid profile email',
         redirect_uri: redirectUrl,
+        nonce: 'nonce'
     });
     console.log(`Redirect URL (add this to Auth0): ${redirectUrl}`);
     console.log(`AuthURL is:  ${authUrl}`);
@@ -37,7 +38,7 @@ let _loginWithAuth0 = async (navigation: any) => {
 
     if (result.type === 'success') {
         console.log(result);
-        let token = result.params.access_token;
+        let token = result.params.id_token;
         storeToken(token);
         navigation.navigate("Preferences");
     }
