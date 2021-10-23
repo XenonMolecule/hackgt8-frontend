@@ -41,7 +41,6 @@ function PreferButton(props: any) {
         </Button>
     );
 }
-
 export default function OtherPreferencesScreen({ navigation, route }: SignInStackScreenProps<'OtherPreferences'>) {
     // Preferences:
     const _vegan = require('../../assets/images/diet/vegan.png');
@@ -58,7 +57,7 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
         corn_free: false,
         vegetarian: false,
     });
-    
+
     // allergies
     const _shellfish = require('../../assets/images/diet/shellfish.png');
     const _pork = require('../../assets/images/diet/pork.png');
@@ -75,6 +74,14 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
         soy: false,
     });
 
+
+    const nextScreen = () => {
+        // TODO: make API request to backend to update user
+
+        navigation.navigate("Root");
+    }
+
+
     return (
         <ScrollView alwaysBounceVertical={false}>
             <Box safeArea flex={1} width="100%" mx="auto" backgroundColor="#F5FBF5" style={styles.container}>
@@ -84,54 +91,55 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
                     <Heading ml="5" fontSize="xl">Preferences:</Heading>
                     <HStack space={3} mx="auto" alignItems="center">
                         <PreferButton text="vegan" image={_vegan} backgroundColor="rgba(134, 234, 132, 0.52);" state={dietary.vegan} onPress={() => {
-                            setDietary({...dietary, vegan: !dietary.vegan})
-                        }}/>
+                            setDietary({ ...dietary, vegan: !dietary.vegan })
+                        }} />
                         <PreferButton text="pescatarian" image={_pescatarian} backgroundColor="rgba(84, 114, 205, 0.66);" state={dietary.pescatarian} onPress={() => {
-                            setDietary({...dietary, pescatarian: !dietary.pescatarian})
+                            setDietary({ ...dietary, pescatarian: !dietary.pescatarian })
                         }} />
                         <PreferButton text="gluten-free" image={_gluten_free} backgroundColor="rgba(220, 199, 86, 0.56);" state={dietary.gluten_free} onPress={() => {
-                            setDietary({...dietary, gluten_free: !dietary.gluten_free})
-                        }}/>
+                            setDietary({ ...dietary, gluten_free: !dietary.gluten_free })
+                        }} />
                     </HStack>
                     <HStack space={3} mx="auto" alignItems="center">
                         <PreferButton text="dairy-free" image={_dairy_free} backgroundColor="rgba(218, 218, 218, 0.36);" state={dietary.dairy_free} onPress={() => {
-                            setDietary({...dietary, dairy_free: !dietary.dairy_free})
-                        }}/>
+                            setDietary({ ...dietary, dairy_free: !dietary.dairy_free })
+                        }} />
                         <PreferButton text="corn-free" image={_corn_free} backgroundColor="rgba(214, 236, 127, 0.66);" state={dietary.corn_free} onPress={() => {
-                            setDietary({...dietary, corn_free: !dietary.corn_free})
-                        }}/>
+                            setDietary({ ...dietary, corn_free: !dietary.corn_free })
+                        }} />
                         <PreferButton text="vegetarian" image={_vegetarian} backgroundColor="rgba(152, 240, 182, 0.71);" state={dietary.vegetarian} onPress={() => {
-                            setDietary({...dietary, vegetarian: !dietary.vegetarian})
-                        }}/>
+                            setDietary({ ...dietary, vegetarian: !dietary.vegetarian })
+                        }} />
                     </HStack>
                     <Heading ml="5" mt="3" fontSize="xl">Allergens:</Heading>
                     <HStack space={3} mx="auto" alignItems="center">
                         <PreferButton text="shellfish" image={_shellfish} backgroundColor="rgba(249, 176, 130, 0.54);" state={allergen.shell} onPress={() => {
-                            setAllergen({...allergen, shell: !allergen.shell})
-                        }}/>
+                            setAllergen({ ...allergen, shell: !allergen.shell })
+                        }} />
                         <PreferButton text="pork-free" image={_pork} backgroundColor="rgba(237, 105, 172, 0.44);" state={allergen.pork} onPress={() => {
-                            setAllergen({...allergen, pork: !allergen.pork})
-                        }}/>
+                            setAllergen({ ...allergen, pork: !allergen.pork })
+                        }} />
                         <PreferButton text="egg-free" image={_egg} backgroundColor="rgba(213, 216, 223, 0.76);" state={allergen.egg} onPress={() => {
-                            setAllergen({...allergen, egg: !allergen.egg})
-                        }}/>
+                            setAllergen({ ...allergen, egg: !allergen.egg })
+                        }} />
                     </HStack>
                     <HStack space={3} mx="auto" alignItems="center">
                         <PreferButton text="nut-free" image={_nut} backgroundColor="rgba(124, 73, 39, 0.38);" state={allergen.nut} onPress={() => {
-                            setAllergen({...allergen, nut: !allergen.nut})
-                        }}/>
+                            setAllergen({ ...allergen, nut: !allergen.nut })
+                        }} />
                         <PreferButton text="fungus-free" image={_fungus} backgroundColor="rgba(246, 84, 114, 0.54);" state={allergen.fungus} onPress={() => {
-                            setAllergen({...allergen, fungus: !allergen.fungus})
-                        }}/>
+                            setAllergen({ ...allergen, fungus: !allergen.fungus })
+                        }} />
                         <PreferButton text="soybean-free" image={_soy} backgroundColor="rgba(243, 217, 125, 0.74);" state={allergen.soy} onPress={() => {
-                            setAllergen({...allergen, soy: !allergen.soy})
-                        }}/>
+                            setAllergen({ ...allergen, soy: !allergen.soy })
+                        }} />
                     </HStack>
                     <Button mt="12" mb="8" mx="auto" height="10"
                         backgroundColor='#AEDDCF'
                         size="2/6"
                         _text={{ color: 'black', fontSize: 18 }}
-                        rounded="xl">
+                        rounded="xl"
+                        onPress={nextScreen}>
                         Complete
                     </Button>
                 </VStack>
