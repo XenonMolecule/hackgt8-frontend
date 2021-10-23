@@ -21,9 +21,21 @@ import {
   Image,
 } from 'native-base';
 import _loginWithAuth0 from '../../auth/Auth';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { getUser } from '../../auth/API';
 
 export default function SignInScreen({ navigation }: SignInStackScreenProps<'LogIn'>) {
   const logo = require('../../assets/images/mindfulbytes.png');
+
+  React.useEffect(() => {
+    const checkLoggedIn = async () => {
+      let user = await getUser();
+      if (user) {
+        navigation.navigate("Root");
+      }
+    }
+    checkLoggedIn();
+  }, [])
 
   return (
     <Box safeArea flex={1} p="5" py="8" width="100%" mx="auto" style={styles.container}>

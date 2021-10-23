@@ -48,14 +48,14 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
     const _pescatarian = require('../../assets/images/diet/pescatarian.png');
     const _gluten_free = require('../../assets/images/diet/gluten-free.png');
     const _dairy_free = require('../../assets/images/diet/milk.png');
-    const _corn_free = require('../../assets/images/diet/corn-free.png');
+    const _paleo = require('../../assets/images/diet/paleo.png');
     const _vegetarian = require('../../assets/images/diet/vegetarian.png');
     const [dietary, setDietary] = React.useState({
         vegan: false,
         pescatarian: false,
         gluten_free: false,
         dairy_free: false,
-        corn_free: false,
+        paleo: false,
         vegetarian: false,
     });
 
@@ -116,8 +116,8 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
                         <PreferButton text="dairy-free" image={_dairy_free} backgroundColor="rgba(218, 218, 218, 0.36);" state={dietary.dairy_free} onPress={() => {
                             setDietary({ ...dietary, dairy_free: !dietary.dairy_free })
                         }} />
-                        <PreferButton text="corn-free" image={_corn_free} backgroundColor="rgba(214, 236, 127, 0.66);" state={dietary.corn_free} onPress={() => {
-                            setDietary({ ...dietary, corn_free: !dietary.corn_free })
+                        <PreferButton text="paleo" image={_paleo} backgroundColor="rgba(214, 236, 127, 0.66);" state={dietary.paleo} onPress={() => {
+                            setDietary({ ...dietary, paleo: !dietary.paleo })
                         }} />
                         <PreferButton text="vegetarian" image={_vegetarian} backgroundColor="rgba(152, 240, 182, 0.71);" state={dietary.vegetarian} onPress={() => {
                             setDietary({ ...dietary, vegetarian: !dietary.vegetarian })

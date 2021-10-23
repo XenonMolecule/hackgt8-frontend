@@ -25,11 +25,12 @@ const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
 
 const Users = [
-    { id: "1", uri: require("../assets/images/exampleCards/1.jpeg") },
-    { id: "2", uri: require('../assets/images/exampleCards/2.jpeg') },
-    { id: "3", uri: require('../assets/images/exampleCards/3.jpeg') },
-    { id: "4", uri: require('../assets/images/exampleCards/4.jpeg') },
-    { id: "5", uri: require('../assets/images/exampleCards/5.jpeg') },
+    { id: "Sugar", uri: require("../assets/images/swipe/sugar.png"), color: 'rgba(127, 220, 249, 0.38);' },
+    { id: "Apples", uri: require('../assets/images/swipe/apple.png'), color: 'rgba(229, 115, 115, 0.38);' },
+    { id: "Bananas", uri: require('../assets/images/swipe/banana.png'), color: 'rgba(218, 233, 45, 0.38);' },
+    { id: "Lettuce", uri: require('../assets/images/swipe/lettuce.png'), color: 'rgba(165, 229, 115, 0.38);' },
+    { id: "Onions", uri: require('../assets/images/swipe/onion.png'), color: 'rgba(213, 124, 244, 0.38);' },
+    { id: "Shrimp", uri: require('../assets/images/swipe/shrimp.png'), color: 'rgba(243, 153, 18, 0.38);' },
 ]
 
 export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitchen'>) {
@@ -87,7 +88,7 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
                 console.log("here in one part")
                 Animated.spring(position, {
                     useNativeDriver: true,
-                    toValue: { x: SCREEN_WIDTH + 100, y: gestureState.dy }
+                    toValue: { x: SCREEN_WIDTH + 50, y: gestureState.dy }
                 }).start(() => {
                     setIndex(currentIndex + 1);
                     position.setValue({ x: 0, y: 0 })
@@ -98,7 +99,7 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
                 console.log("Here in second part");
                 Animated.spring(position, {
                     useNativeDriver: true,
-                    toValue: { x: -SCREEN_WIDTH - 100, y: gestureState.dy }
+                    toValue: { x: -SCREEN_WIDTH - 50, y: gestureState.dy }
                 }).start(() => {
                     setIndex(currentIndex + 1);
                     position.setValue({ x: 0, y: 0 })
@@ -127,7 +128,8 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
                 return (
                     <Animated.View
                         {...panResponder.panHandlers}
-                        key={item.id} style={[rotateAndTranslate, { height: SCREEN_HEIGHT - 120, width: SCREEN_WIDTH, padding: 10, position: 'absolute', }]}>
+                        key={item.id} style={[rotateAndTranslate,
+                            { height: 250, width: 210, padding: 10, position: 'absolute', alignSelf: 'center' }]}>
                         <Animated.View style={{ opacity: likeOpacity, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                             <Text style={{ borderWidth: 1, borderColor: 'green', color: 'green', fontSize: 28, fontWeight: '800', padding: 10 }}>YES</Text>
 
@@ -138,9 +140,15 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
 
                         </Animated.View>
 
-                        <Image
-                            style={{ flex: 1, height: undefined, width: undefined, resizeMode: 'contain', borderRadius: 20 }}
-                            source={item.uri} />
+
+                        <Animated.View style={{ backgroundColor: 'white', position: 'absolute', width: 210, height: 250, borderRadius: 20, }}>
+                            <Animated.View style={{ backgroundColor: item.color, position: 'absolute', width: '100%', height: '100%', borderRadius: 20, alignItems: 'center', justifyContent: 'flex-start' }}>
+                                <Image
+                                    style={{ flex: 1, height: '50%', width: '50%', resizeMode: 'contain', }}
+                                    source={item.uri} />
+                                <Text style={{ fontSize: 32, fontFamily: 'comfortaa', fontWeight: '800', marginBottom: 30, }}>{item.id}</Text>
+                            </Animated.View>
+                        </Animated.View>
 
                     </Animated.View>
                 )
@@ -148,11 +156,10 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
             else {
                 return (
                     <Animated.View
-
                         key={item.id} style={[{
                             opacity: nextCardOpacity,
                             transform: [{ scale: nextCardScale }],
-                            height: SCREEN_HEIGHT-120, width: SCREEN_WIDTH, padding: 10, position: 'absolute',
+                            height: 250, width: 210, padding: 10, position: 'absolute', alignSelf: 'center'
                         }]}>
                         <Animated.View style={{ opacity: 0, transform: [{ rotate: '-30deg' }], position: 'absolute', top: 50, left: 40, zIndex: 1000 }}>
                             <Text style={{ borderWidth: 1, borderColor: 'green', color: 'green', fontSize: 32, fontWeight: '800', padding: 10 }}>YES</Text>
@@ -164,11 +171,16 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
 
                         </Animated.View>
 
-                        <Image
-                            style={{ height: undefined, width: undefined, resizeMode: 'contain', borderRadius: 20 }}
-                            source={item.uri} />
+                        <Animated.View style={{ backgroundColor: 'white', position: 'absolute', width: 210, height: 250, borderRadius: 20, }}>
+                            <Animated.View style={{ backgroundColor: item.color, position: 'absolute', width: '100%', height: '100%', borderRadius: 20, alignItems: 'center', justifyContent: 'flex-start' }}>
+                                <Image
+                                    style={{ flex: 1, height: '50%', width: '50%', resizeMode: 'contain', }}
+                                    source={item.uri} />
+                                <Text style={{ fontSize: 32, fontFamily: 'comfortaa', fontWeight: '800', marginBottom: 30, }}>{item.id}</Text>
+                            </Animated.View>
+                        </Animated.View>
 
-                    </Animated.View>
+                    </Animated.View >
                 )
             }
         }).reverse()
@@ -199,7 +211,12 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
                 <Heading textAlign="center">Let's build your kitchen!{'\n'}
                     Swipe right to add these items to your inventory (or skip ahead!)
                 </Heading>
-                {renderUsers()}
+                <View style={{ position: 'absolute', top: '100%', left: 0, right: 0 }}>
+                    {renderUsers()}
+                </View>
+                <HStack space={10}>
+                    
+                </HStack>
             </VStack>
         </Box>
     );
