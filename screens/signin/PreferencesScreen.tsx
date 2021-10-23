@@ -92,6 +92,7 @@ export default function PreferencesScreen({ navigation }: SignInStackScreenProps
 
 const styles = StyleSheet.create({
     container: {
+        paddingTop: 80,
         justifyContent: 'center',
         backgroundColor: 'rgba(255, 255, 255, 0.42);',
     },
