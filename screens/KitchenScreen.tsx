@@ -20,6 +20,7 @@ import {
     ScrollView,
 } from 'native-base';
 import { MaterialIcons, Ionicons } from "@expo/vector-icons"
+import FridgeScreen from './FridgeScreen';
 
 const SCREEN_HEIGHT = Dimensions.get('window').height
 const SCREEN_WIDTH = Dimensions.get('window').width
@@ -33,10 +34,13 @@ const Users = [
     { id: "Shrimp", uri: require('../assets/images/swipe/shrimp.png'), color: 'rgba(243, 153, 18, 0.38);' },
 ]
 
+const swipeLeft = require('../assets/images/swipeLeft.png');
+const skip = require('../assets/images/skip.png');
+
 export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitchen'>) {
 
     let position = new Animated.ValueXY()
-    const [currentIndex, setIndex] = React.useState(0);
+    const [currentIndex, setIndex] = React.useState(10);
 
     let rotate = position.x.interpolate({
         inputRange: [-SCREEN_WIDTH / 2, 0, SCREEN_WIDTH / 2],
@@ -186,40 +190,55 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
         }).reverse()
     }
 
-    return (
-        <Box safeArea flex={1} p="5" width="100%" mx="auto" style={styles.container}>
-            <VStack space={5}>
-                <HStack space={3} alignItems="center">
-                    <Input
-                        w="90%"
-                        InputRightElement={
-                            <Icon
-                                as={<MaterialIcons name="search" />}
-                                size={5}
-                                ml="2"
-                                color="black"
-                            />
-                        }
-                        placeholder="Search to add"
-                        backgroundColor="#ECECEC"
-                    />
-                    <Ionicons name="cart-outline"
-                        size={30}
-                        ml="10"
-                        color="black" />
-                </HStack>
-                <Heading textAlign="center">Let's build your kitchen!{'\n'}
-                    Swipe right to add these items to your inventory (or skip ahead!)
-                </Heading>
-                <View style={{ position: 'absolute', top: '100%', left: 0, right: 0 }}>
-                    {renderUsers()}
-                </View>
-                <HStack space={10}>
-                    
-                </HStack>
-            </VStack>
-        </Box>
-    );
+    if (currentIndex < Users.length) {
+        return (
+            <Box safeArea flex={1} p="5" width="100%" mx="auto" style={styles.container}>
+                <VStack space={3}>
+                    <HStack space={3} alignItems="center">
+                        <Input
+                            w="90%"
+                            InputRightElement={
+                                <Icon
+                                    as={<MaterialIcons name="search" />}
+                                    size={5}
+                                    ml="2"
+                                    color="black"
+                                />
+                            }
+                            placeholder="Search to add"
+                            backgroundColor="#ECECEC"
+                        />
+                        <Ionicons name="cart-outline"
+                            size={30}
+                            ml="10"
+                            color="black" />
+                    </HStack>
+                    <Heading textAlign="center" size="md">Let's build your kitchen!{'\n'}
+                        Swipe right to add these items to your inventory (or skip ahead!)
+                    </Heading>
+                    <View style={{ position: 'absolute', bottom: '75%', left: 0, right: 0, }}>
+                        {renderUsers()}
+                    </View>
+                    <HStack space={10} pt="5/6" alignItems="center" justifyContent="center">
+                        <VStack space={3} alignItems="center">
+                            <Heading textAlign="center">I don't{'\n'}have it</Heading>
+                            <Image source={swipeLeft} style={{ width: 100, height: 80 }} />
+                        </VStack>
+                        <VStack space={3} alignItems="center">
+                            <Heading textAlign="center">I have it{'\n'}</Heading>
+                            <Image source={swipeLeft} style={{ width: 100, height: 80, transform: [{ scaleX: -1, }] }} />
+                        </VStack>
+                    </HStack>
+                    <VStack space={1} alignItems="center">
+                        <Heading textAlign="center">Skip</Heading>
+                        <Image source={skip} style={{ width: 56, height: 48 }} />
+                    </VStack>
+                </VStack>
+            </Box>
+        );
+    } else {
+        return <FridgeScreen />
+    }
 }
 
 const styles = StyleSheet.create({

@@ -61,17 +61,17 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
 
     // allergies
     const _shellfish = require('../../assets/images/diet/shellfish.png');
-    const _pork = require('../../assets/images/diet/pork.png');
+    const _sulfite = require('../../assets/images/diet/sulfite.png');
     const _egg = require('../../assets/images/diet/egg.png');
     const _nut = require('../../assets/images/diet/nut.png');
-    const _fungus = require('../../assets/images/diet/fungus.png');
+    const _grain = require('../../assets/images/diet/grain.png');
     const _soy = require('../../assets/images/diet/soy.png');
     const [allergen, setAllergen] = React.useState({
         shell: false,
-        pork: false,
+        sulfite: false,
         egg: false,
         nut: false,
-        fungus: false,
+        grain: false,
         soy: false,
     });
 
@@ -128,8 +128,8 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
                         <PreferButton text="shellfish" image={_shellfish} backgroundColor="rgba(249, 176, 130, 0.54);" state={allergen.shell} onPress={() => {
                             setAllergen({ ...allergen, shell: !allergen.shell })
                         }} />
-                        <PreferButton text="pork-free" image={_pork} backgroundColor="rgba(237, 105, 172, 0.44);" state={allergen.pork} onPress={() => {
-                            setAllergen({ ...allergen, pork: !allergen.pork })
+                        <PreferButton text="sulfite-free" image={_sulfite} backgroundColor="rgba(105, 189, 237, 0.44);" state={allergen.sulfite} onPress={() => {
+                            setAllergen({ ...allergen, sulfite: !allergen.sulfite })
                         }} />
                         <PreferButton text="egg-free" image={_egg} backgroundColor="rgba(213, 216, 223, 0.76);" state={allergen.egg} onPress={() => {
                             setAllergen({ ...allergen, egg: !allergen.egg })
@@ -139,10 +139,10 @@ export default function OtherPreferencesScreen({ navigation, route }: SignInStac
                         <PreferButton text="nut-free" image={_nut} backgroundColor="rgba(124, 73, 39, 0.38);" state={allergen.nut} onPress={() => {
                             setAllergen({ ...allergen, nut: !allergen.nut })
                         }} />
-                        <PreferButton text="fungus-free" image={_fungus} backgroundColor="rgba(246, 84, 114, 0.54);" state={allergen.fungus} onPress={() => {
-                            setAllergen({ ...allergen, fungus: !allergen.fungus })
+                        <PreferButton text="grain-free" image={_grain} backgroundColor="rgba(237, 239, 149, 0.54);" state={allergen.grain} onPress={() => {
+                            setAllergen({ ...allergen, grain: !allergen.grain })
                         }} />
-                        <PreferButton text="soybean-free" image={_soy} backgroundColor="rgba(243, 217, 125, 0.74);" state={allergen.soy} onPress={() => {
+                        <PreferButton text="soy-free" image={_soy} backgroundColor="rgba(243, 217, 125, 0.74);" state={allergen.soy} onPress={() => {
                             setAllergen({ ...allergen, soy: !allergen.soy })
                         }} />
                     </HStack>
