@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { StyleSheet, Text, View, Dimensions, Animated, PanResponder } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Animated, PanResponder, TouchableOpacity } from 'react-native';
 
 import EditScreenInfo from '../components/EditScreenInfo';
 import { RootTabScreenProps } from '../types';
@@ -65,6 +65,19 @@ const items = [
 export default function FridgeScreen({ navigation }: any) {
     const [filter, setFilter] = React.useState('fridge');
 
+    const itemScreen = (item: any) => {
+        // TODO: Integrate with backend for foods
+        let params = {
+            name: "Apples",
+            quantity: 0,
+            uri: require('../assets/images/swipe/apple.png'),
+            color: 'rgba(229, 115, 115, 0.38);',
+            expiry: new Date().toString(),
+            bought: new Date().toString(),
+        }
+        navigation.navigate("Item", params);
+    }
+
     return (
         <Box safeArea flex={1} px="5" pb="40" width="100%" mx="auto" style={styles.container}>
             <VStack space={3}>
@@ -118,9 +131,11 @@ export default function FridgeScreen({ navigation }: any) {
                         {items.map((e, i) => {
                             if (e.category === filter || filter === 'fridge') {
                                 return (
-                                    <Center width={75} height={75} backgroundColor={e.color} borderRadius={30}>
-                                        <Image alt={e.id} source={e.uri} width={"80%"} height={"80%"} resizeMode="contain" />
-                                    </Center>
+                                    <TouchableOpacity onPress={() => itemScreen(e)}>
+                                        <Center width={75} height={75} backgroundColor={e.color} borderRadius={30}>
+                                            <Image alt={e.id} source={e.uri} width={"80%"} height={"80%"} resizeMode="contain" />
+                                        </Center>
+                                    </TouchableOpacity>
                                 );
                             } else {
                                 return <></>;
@@ -129,12 +144,6 @@ export default function FridgeScreen({ navigation }: any) {
                     </Wrap>
                 </ScrollView>
             </VStack>
-            {/* <Fab
-                position="absolute"
-                size="sm"
-                bottom={60}
-                icon={<Ionicons color="white" name="add" size={30} />}
-            /> */}
             <ActionButton buttonColor="rgba(231,76,60,1)">
                 <ActionButton.Item buttonColor='#3498db' title="Scan Item" onPress={() => { }}>
                     <Ionicons name="scan" style={styles.actionButtonIcon} />
