@@ -35,7 +35,7 @@ export const addUser = async () => {
             email: decoded.email,
             auth0AccessToken: decoded.sub,
             pictureUrl: decoded.picture,
-        }
+        };
         formData.append('data', JSON.stringify(data));
         const response: any = await axios.post(`${api_url}/api/user`, formData, {
             headers: {
@@ -48,7 +48,7 @@ export const addUser = async () => {
         return response;
     }
     return null;
-}
+};
 
 export const updateUser = async (data: any) => {
     let token = await getToken();
@@ -118,6 +118,22 @@ export const getFood = async (foodID: any) => {
             console.error(e);
         });
         return response.data.food;
+    }
+    return null;
+}
+
+export const updatePushTokens = async (pushToken: any) => {
+    let token = await getToken();
+    if (token) {
+        let formData: FormData = new FormData();
+        formData.append('pushToken', pushToken);
+        const response: any = await axios.put(`${api_url}/api/user/token`, formData, {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+            },
+        }).catch((e) => {
+            console.error(e);
+        });
     }
     return null;
 }
