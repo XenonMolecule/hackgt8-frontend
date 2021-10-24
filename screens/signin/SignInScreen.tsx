@@ -43,7 +43,7 @@ export default function SignInScreen({ navigation }: SignInStackScreenProps<'Log
 
       <VStack space={3} mt="20">
         <Button mt="2" colorScheme="lime" _text={{ color: 'white' }} rounded="full" size="lg"
-          onPress={async () => {await _loginWithAuth0(navigation)}}>
+          onPress={async () => { await _loginWithAuth0(navigation) }}>
           Login/Signup
         </Button>
       </VStack>

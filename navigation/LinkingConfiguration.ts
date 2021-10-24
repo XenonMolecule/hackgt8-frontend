@@ -39,6 +39,7 @@ const linking: LinkingOptions<RootStackParamList> = {
       },
       Modal: 'modal',
       Item: 'item',
+      Recipe: 'recipe',
       NotFound: '*',
       SignIn: {
         screens: {

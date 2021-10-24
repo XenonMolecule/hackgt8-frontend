@@ -1,6 +1,7 @@
 import * as AuthSession from 'expo-auth-session';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { addUser, getUser } from './API';
+import jwtDecode from 'jwt-decode';
 
 const auth0Domain = 'dev-ajdj9ych.us.auth0.com';
 const auth0ClientId = 'fjcKa6mU6vZym8CPDCGJzMYAeYwsYfPq';
@@ -44,7 +45,8 @@ let _loginWithAuth0 = async (navigation: any) => {
         let user = (await getUser()).user;
         if (!user) {
             await addUser();
-            navigation.navigate("Preferences");
+            let decoded: any = jwtDecode(token);
+            navigation.navigate("Preferences", { name: decoded.name });
         } else {
             navigation.navigate("Root");
         }

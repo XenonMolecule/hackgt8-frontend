@@ -25,6 +25,7 @@ import KitchenScreen from '../screens/KitchenScreen';
 import CommunityScreen from '../screens/CommunityScreen';
 import ProfileScreen from '../screens/ProfileScreen';
 import ItemScreen from '../screens/ItemScreen';
+import RecipeScreen from '../screens/RecipeScreen';
 import { Image } from 'native-base';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
@@ -47,7 +48,8 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="SignIn" component={SignInNavigator} options={{ headerShown: false }} />
-      <Stack.Screen name="Item" component={ItemScreen} options={{headerShown: false}}/>
+      <Stack.Screen name="Item" component={ItemScreen} options={{ headerShown: false }} />
+      <Stack.Screen name="Recipe" component={RecipeScreen} options={{ headerShown: false }} />
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>

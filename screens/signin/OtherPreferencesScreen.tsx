@@ -42,6 +42,73 @@ function PreferButton(props: any) {
         </Button>
     );
 }
+
+export const dietaryInfo = {
+    vegan: {
+        name: "vegan",
+        image: require("../../assets/images/diet/vegan.png"),
+        color: "rgba(134, 234, 132, 0.52);",
+    },
+    pescatarian: {
+        name: "pescatarian",
+        image: require("../../assets/images/diet/pescatarian.png"),
+        color: "rgba(84, 114, 205, 0.66);",
+    },
+    gluten_free: {
+        name: "gluten-free",
+        image: require("../../assets/images/diet/gluten-free.png"),
+        color: "rgba(220, 199, 86, 0.56);",
+    },
+    dairy_free: {
+        name: "dairy-free",
+        image: require("../../assets/images/diet/milk.png"),
+        color: "rgba(214, 236, 127, 0.66);",
+    },
+    paleo: {
+        name: "paleo",
+        image: require("../../assets/images/diet/paleo.png"),
+        color: "rgba(214, 236, 127, 0.66);",
+    },
+    vegetarian: {
+        name: "vegetarian",
+        image: require("../../assets/images/diet/vegetarian.png"),
+        color: "rgba(152, 240, 182, 0.71);",
+    }
+}
+
+export const allergyInfo = {
+    shell: {
+        name: "shellfish",
+        image: require("../../assets/images/diet/shellfish.png"),
+        color: "rgba(249, 176, 130, 0.54);",
+    },
+    sulfite: {
+        name: "sulfite-free",
+        image: require("../../assets/images/diet/sulfite.png"),
+        color: "rgba(105, 189, 237, 0.44);",
+    },
+    egg: {
+        name: "egg-free",
+        image: require("../../assets/images/diet/egg.png"),
+        color: "rgba(213, 216, 223, 0.76);",
+    },
+    nut: {
+        name: "nut-free",
+        image: require("../../assets/images/diet/nut.png"),
+        color: "rgba(124, 73, 39, 0.38);",
+    },
+    grain: {
+        name: "grain-free",
+        image: require("../../assets/images/diet/grain.png"),
+        color: "rgba(237, 239, 149, 0.54);",
+    },
+    soy: {
+        name: "soy-free",
+        image: require("../../assets/images/diet/soy.png"),
+        color: "rgba(243, 217, 125, 0.74);",
+    }
+}
+
 export default function OtherPreferencesScreen({ navigation, route }: SignInStackScreenProps<'OtherPreferences'>) {
     // Preferences:
     const _vegan = require('../../assets/images/diet/vegan.png');

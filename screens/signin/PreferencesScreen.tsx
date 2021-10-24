@@ -47,7 +47,7 @@ function nextScreen(navigation: any, recipes: boolean, waste: boolean, kitchen: 
     navigation.navigate("OtherPreferences", { recipes, waste, kitchen });
 }
 
-export default function PreferencesScreen({ navigation }: SignInStackScreenProps<'Preferences'>) {
+export default function PreferencesScreen({ navigation, route }: SignInStackScreenProps<'Preferences'>) {
     const cart = require('../../assets/images/cart.png');
     const recycle = require('../../assets/images/recycle.png');
     const fridge = require('../../assets/images/fridge.png');
@@ -58,7 +58,7 @@ export default function PreferencesScreen({ navigation }: SignInStackScreenProps
     return (
         <ScrollView alwaysBounceVertical={false} backgroundColor="rgba(255, 255, 255, 1);">
             <Box safeArea flex={1} p="5" py="10" width="100%" mx="auto" style={styles.container}>
-                <Heading textAlign="center">Hi Alex!</Heading>
+                <Heading textAlign="center">Hi {route.params?.name ? route.params?.name : 'Alex'}!</Heading>
                 <Heading textAlign="center">What is your goal?</Heading>
                 <Heading fontSize="md" mt="3" textAlign="center">Pick the preferences you want to
                     customize your experience with
