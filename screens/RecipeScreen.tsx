@@ -68,43 +68,41 @@ export default function ItemScreen({ navigation, route }: RootStackScreenProps<'
     }
 
     return (
-        <ScrollView>
-            <Box safeArea flex={1} px="5" width="100%" mx="auto" style={styles.container}>
-                <VStack space={3} justifyContent="space-between">
-                    <HStack space={3} justifyContent="flex-end">
-                        <IconButton
-                            icon={<Ionicons name="close-outline"
-                                size={30}
-                                ml="10"
-                                color="black"
-                            />}
-                            borderRadius="full"
-                            onPress={() => navigation.goBack()}
-                        />
-                    </HStack>
-                    <HStack space={3} justifyContent="center">
-                        <Center width={"100%"} height={192}>
-                            <Image alt={name} src={imageUrl} width={"80%"} height={"60%"} resizeMode="cover" rounded="3xl" />
-                            <Heading size={"xl"} mt="3">{name}</Heading>
+        <Box safeArea flex={1} px="5" width="100%" mx="auto" style={styles.container}>
+            <VStack space={3} justifyContent="space-between">
+                <HStack space={3} justifyContent="flex-end">
+                    <IconButton
+                        icon={<Ionicons name="close-outline"
+                            size={30}
+                            ml="10"
+                            color="black"
+                        />}
+                        borderRadius="full"
+                        onPress={() => navigation.goBack()}
+                    />
+                </HStack>
+                <HStack space={3} justifyContent="center">
+                    <Center width={"100%"} height={192}>
+                        <Image alt={name} src={imageUrl} width={"80%"} height={"60%"} resizeMode="cover" rounded="3xl" />
+                        <Heading size={"xl"} mt="3">{name}</Heading>
+                    </Center>
+                </HStack>
+                <Heading size="md" mt="5">Ingredients:</Heading>
+                <Wrap direction="row" alignItems="center" justifyContent="center" space={2}>
+                    {ingredients.map((e: any, i: any) => (
+                        <Center width={110} height={120} backgroundColor={e.color} borderRadius={30}>
+                            <Image alt={e._id} src={e.imageUrl} width={"80%"} height={"40%"} resizeMode="contain" />
+                            <Heading size="sm">{e.name}</Heading>
+                            <Heading size="sm">{e.amt}</Heading>
                         </Center>
-                    </HStack>
-                    <Heading size="md" mt="5">Ingredients:</Heading>
-                    <Wrap direction="row" alignItems="center" justifyContent="center" space={2}>
-                        {ingredients.map((e: any, i: any) => (
-                            <Center width={110} height={120} backgroundColor={e.color} borderRadius={30}>
-                                <Image alt={e._id} src={e.imageUrl} width={"80%"} height={"40%"} resizeMode="contain" />
-                                <Heading size="sm">{e.name}</Heading>
-                                <Heading size="sm">{e.amt}</Heading>
-                            </Center>
-                        ))}
-                    </Wrap>
-                    <Heading size="md" mt="5">Steps:</Heading>
-                    <Text>
-                        {stepsConverter(instructions)}
-                    </Text>
-                </VStack>
-            </Box>
-        </ScrollView>
+                    ))}
+                </Wrap>
+                <Heading size="md" mt="5">Steps:</Heading>
+                <Text>
+                    {stepsConverter(instructions)}
+                </Text>
+            </VStack>
+        </Box>
     );
 }
 

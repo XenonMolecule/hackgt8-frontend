@@ -107,7 +107,7 @@ export default function RecipesScreen({ navigation }: RootTabScreenProps<'Recipe
                                         <Image alt={e.name} src={e.imageUrl} width="40%" height="24" resizeMode="contain" />
                                         <VStack width="55%" ml="2">
                                             <Heading size="xs" mb={2}>{e.name}</Heading>
-                                            <Heading size="xs">TBD</Heading>
+                                            <Heading size="xs" numberOfLines={3}>{e.summary}</Heading>
                                         </VStack>
                                     </HStack>
                                 </TouchableOpacity>
