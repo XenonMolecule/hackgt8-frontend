@@ -24,12 +24,14 @@ import OtherPreferencesScreen from '../screens/signin/OtherPreferencesScreen';
 import KitchenScreen from '../screens/KitchenScreen';
 import CommunityScreen from '../screens/CommunityScreen';
 import ProfileScreen from '../screens/ProfileScreen';
+import ItemScreen from '../screens/ItemScreen';
+import { Image } from 'native-base';
 
 export default function Navigation({ colorScheme }: { colorScheme: ColorSchemeName }) {
   return (
     <NavigationContainer
       linking={LinkingConfiguration}
-      theme={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+      theme={DefaultTheme}>
       <RootNavigator />
     </NavigationContainer>
   );
@@ -45,6 +47,7 @@ function RootNavigator() {
   return (
     <Stack.Navigator>
       <Stack.Screen name="SignIn" component={SignInNavigator} options={{ headerShown: false }} />
+      <Stack.Screen name="Item" component={ItemScreen} options={{headerShown: false}}/>
       <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
       <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: 'Oops!' }} />
       <Stack.Group screenOptions={{ presentation: 'modal' }}>
@@ -61,13 +64,17 @@ function RootNavigator() {
 const BottomTab = createBottomTabNavigator<RootTabParamList>();
 
 function BottomTabNavigator() {
-  const colorScheme = useColorScheme();
+  const colorScheme = "light";
 
   return (
     <BottomTab.Navigator
       initialRouteName="Kitchen"
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme].tint,
+        tabBarActiveBackgroundColor: '#D7D1D1',
+        tabBarActiveTintColor: 'black',
+        tabBarStyle: {
+          height: 60,
+        },
         headerShown: false,
         tabBarLabelStyle: {
           fontFamily: 'comfortaa'
@@ -78,7 +85,7 @@ function BottomTabNavigator() {
         component={KitchenScreen}
         options={({ navigation }: RootTabScreenProps<'Kitchen'>) => ({
           title: 'Kitchen',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <Image source={require('../assets/images/kitchenTab.png')} size="10" />,
         })}
       />
       <BottomTab.Screen
@@ -86,7 +93,7 @@ function BottomTabNavigator() {
         component={RecipesScreen}
         options={{
           title: 'Recipes',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <Image source={require('../assets/images/recipeTab.png')} size="10" />,
         }}
       />
       <BottomTab.Screen
@@ -94,7 +101,7 @@ function BottomTabNavigator() {
         component={CommunityScreen}
         options={{
           title: 'Community',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <Image source={require('../assets/images/communityTab.png')} size="10" />,
         }}
       />
       <BottomTab.Screen
@@ -102,7 +109,7 @@ function BottomTabNavigator() {
         component={ProfileScreen}
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
+          tabBarIcon: ({ color }) => <Image source={require('../assets/images/profileTab.png')} size="10" />,
         }}
       />
     </BottomTab.Navigator>

@@ -38,6 +38,7 @@ const linking: LinkingOptions<RootStackParamList> = {
         },
       },
       Modal: 'modal',
+      Item: 'item',
       NotFound: '*',
       SignIn: {
         screens: {

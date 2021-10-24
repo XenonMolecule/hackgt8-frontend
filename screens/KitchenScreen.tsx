@@ -237,7 +237,7 @@ export default function KitchenScreen({ navigation }: RootTabScreenProps<'Kitche
             </Box>
         );
     } else {
-        return <FridgeScreen />
+        return <FridgeScreen navigation={navigation} />
     }
 }
 
