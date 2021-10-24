@@ -31,7 +31,7 @@ export default function SignInScreen({ navigation }: SignInStackScreenProps<'Log
     const checkLoggedIn = async () => {
       let user = await getUser();
       if (user) {
-        navigation.navigate("Root");
+        navigation.navigate("Root", { user: user.user });
       }
     }
     checkLoggedIn();

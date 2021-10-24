@@ -25,6 +25,8 @@ import {
 } from 'native-base';
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons"
 import ActionButton from 'react-native-action-button';
+import * as ImagePicker from 'expo-image-picker';
+import { detectFood, getFood, getUser, searchFood } from '../auth/API';
 
 const items = [
     { id: "Sugar", uri: require("../assets/images/swipe/sugar.png"), color: 'rgba(127, 220, 249, 0.38);', category: 'other' },
@@ -64,19 +66,66 @@ const items = [
 
 export default function FridgeScreen({ navigation }: any) {
     const [filter, setFilter] = React.useState('fridge');
+    const [inventory, setInventory] = React.useState([]);
+
+    React.useEffect(() => {
+        const getInventory = async () => {
+            let user = await getUser();
+            if (user) {
+                console.log(user.user);
+                let inventory = user.user.inventory;
+                for (let i = 0; i < inventory.length; i++) {
+                    let foodData = await getFood(inventory[i].foodID);
+                    inventory[i] = { ...inventory[i], ...foodData };
+                }
+                console.log(inventory)
+                setInventory(inventory);
+            }
+        }
+        getInventory();
+    }, []);
 
     const itemScreen = (item: any) => {
-        // TODO: Integrate with backend for foods
-        let params = {
-            name: "Apples",
-            quantity: 0,
-            uri: require('../assets/images/swipe/apple.png'),
-            color: 'rgba(229, 115, 115, 0.38);',
-            expiry: new Date().toString(),
-            bought: new Date().toString(),
-        }
-        navigation.navigate("Item", params);
+        navigation.navigate("Item", item);
     }
+
+    const takeImage = async () => {
+        const mediaStatus = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        if (mediaStatus.status !== 'granted') {
+            alert('Sorry, we need camera roll permissions to make this work!');
+            return;
+        }
+        let result = await ImagePicker.launchCameraAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+            quality: 1,
+        });
+
+        if (!result.cancelled) {
+            let detect = await detectFood({ uri: result.uri, name: 'image.jpg', type: 'image/jpg' });
+            console.log(detect.labels);
+            // check each possible until one hits
+            let foodData = null;
+            for (let i = 0; i < detect.labels.length; i++) {
+                foodData = await searchFood(detect.labels[i]);
+                console.log(foodData);
+                if (foodData) {
+                    break;
+                }
+            }
+            if (foodData) {
+                let expirationDate = new Date();
+                expirationDate.setDate(expirationDate.getDate() + foodData.defaultExpirationDays)
+                let payload = { 
+                    ...foodData, 
+                    dateAdded: new Date().toString(), 
+                    expirationDate: expirationDate.toString(), 
+                    quantity: 1,
+                    adding: true 
+                };
+                navigation.navigate("Item", payload)
+            }
+        }
+    };
 
     return (
         <Box safeArea flex={1} px="5" pb="40" width="100%" mx="auto" style={styles.container}>
@@ -128,12 +177,12 @@ export default function FridgeScreen({ navigation }: any) {
                 </HStack>
                 <ScrollView mb="0">
                     <Wrap direction="row" alignItems="center" justifyContent="center" space={5}>
-                        {items.map((e, i) => {
-                            if (e.category === filter || filter === 'fridge') {
+                        {inventory.map((e: any, i) => {
+                            if (e.category.toLowerCase() === filter || filter === 'fridge') {
                                 return (
                                     <TouchableOpacity onPress={() => itemScreen(e)}>
                                         <Center width={75} height={75} backgroundColor={e.color} borderRadius={30}>
-                                            <Image alt={e.id} source={e.uri} width={"80%"} height={"80%"} resizeMode="contain" />
+                                            <Image alt={e._id} src={ e.imageUrl } width={"80%"} height={"80%"} resizeMode="contain" />
                                         </Center>
                                     </TouchableOpacity>
                                 );
@@ -145,7 +194,7 @@ export default function FridgeScreen({ navigation }: any) {
                 </ScrollView>
             </VStack>
             <ActionButton buttonColor="rgba(231,76,60,1)">
-                <ActionButton.Item buttonColor='#3498db' title="Scan Item" onPress={() => { }}>
+                <ActionButton.Item buttonColor='#3498db' title="Scan Item" onPress={takeImage}>
                     <Ionicons name="scan" style={styles.actionButtonIcon} />
                 </ActionButton.Item>
                 <ActionButton.Item buttonColor='#1abc9c' title="Scan Receipt" onPress={() => { }}>
@@ -173,8 +222,8 @@ const styles = StyleSheet.create({
         width: '80%',
     },
     actionButtonIcon: {
-      fontSize: 25,
-      height: 25,
-      color: 'white',
+        fontSize: 25,
+        height: 25,
+        color: 'white',
     },
 });

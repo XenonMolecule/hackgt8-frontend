@@ -25,6 +25,7 @@ import {
 } from 'native-base';
 import { MaterialIcons, Ionicons, MaterialCommunityIcons } from "@expo/vector-icons"
 import ActionButton from 'react-native-action-button';
+import { getUser, getRecipes } from '../auth/API';
 
 const items = [
     { id: "'Meats' Pizza", uri: require("../assets/images/Recipes/pizza.png"), color: '#FB9D97', description: "A meatlover’s dream pizza loaded with pepperoni, sausage, and bacon." },
@@ -36,17 +37,21 @@ const items = [
 
 export default function RecipesScreen({ navigation }: RootTabScreenProps<'Recipes'>) {
     const [filter, setFilter] = React.useState('top50');
+    const [recipes, setRecipes] = React.useState<any>([]);
+
+    React.useEffect(() => {
+        const getMyRecipes = async () => {
+            let user = await getUser();
+            if (user) {
+                let myRecipes = await getRecipes();
+                setRecipes(myRecipes);
+            }
+        }
+        getMyRecipes();
+    }, [])
 
     const recipeScreen = (item: any) => {
-        // TODO: Integrate with backend for foods
-        let params = {
-            name: "'Meats' Pizza",
-            ingredients: [],
-            uri: item.uri,
-            color: item.color,
-            steps: '',
-        }
-        navigation.navigate("Recipe", params);
+        navigation.navigate("Recipe", item);
     }
 
     return (
@@ -95,14 +100,14 @@ export default function RecipesScreen({ navigation }: RootTabScreenProps<'Recipe
                 </HStack>
                 <ScrollView mb="0">
                     <Wrap direction="row" justifyContent="center" space={5}>
-                        {items.map((e, i) => (
-                            <Box width={"100%"} height="32" backgroundColor={e.color} rounded="3xl">
+                        {recipes && recipes.map((e: any, i: any) => (
+                            <Box width={"100%"} height="32" backgroundColor={"#FFF"} borderWidth="1" rounded="3xl">
                                 <TouchableOpacity onPress={() => recipeScreen(e)}>
-                                    <HStack>
-                                        <Image alt={e.id} source={e.uri} width="40%" height="24" resizeMode="contain" />
-                                        <VStack width="55%">
-                                            <Heading size="xs" mb={2}>{e.id}</Heading>
-                                            <Heading size="xs">{e.description}</Heading>
+                                    <HStack ml="5">
+                                        <Image alt={e.name} src={e.imageUrl} width="40%" height="24" resizeMode="contain" />
+                                        <VStack width="55%" ml="2">
+                                            <Heading size="xs" mb={2}>{e.name}</Heading>
+                                            <Heading size="xs">TBD</Heading>
                                         </VStack>
                                     </HStack>
                                 </TouchableOpacity>

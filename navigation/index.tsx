@@ -103,7 +103,7 @@ function BottomTabNavigator() {
         component={CommunityScreen}
         options={{
           title: 'Community',
-          tabBarIcon: ({ color }) => <Image source={require('../assets/images/communityTab.png')} size="10" />,
+          tabBarIcon: ({ color }) => <Image source={require('../assets/images/newCommunity.png')} size="10" mt="4" />,
         }}
       />
       <BottomTab.Screen
