@@ -67,6 +67,7 @@ const items = [
 export default function FridgeScreen({ navigation }: any) {
     const [filter, setFilter] = React.useState('fridge');
     const [inventory, setInventory] = React.useState([]);
+    const [loading, setLoading] = React.useState(false);
 
     React.useEffect(() => {
         const getInventory = async () => {
@@ -84,6 +85,20 @@ export default function FridgeScreen({ navigation }: any) {
         }
         getInventory();
     }, []);
+
+    const getInventory = async () => {
+        let user = await getUser();
+        if (user) {
+            console.log(user.user);
+            let inventory = user.user.inventory;
+            for (let i = 0; i < inventory.length; i++) {
+                let foodData = await getFood(inventory[i].foodID);
+                inventory[i] = { ...inventory[i], ...foodData };
+            }
+            console.log(inventory)
+            setInventory(inventory);
+        }
+    }
 
     const itemScreen = (item: any) => {
         navigation.navigate("Item", item);
@@ -115,12 +130,12 @@ export default function FridgeScreen({ navigation }: any) {
             if (foodData) {
                 let expirationDate = new Date();
                 expirationDate.setDate(expirationDate.getDate() + foodData.defaultExpirationDays)
-                let payload = { 
-                    ...foodData, 
-                    dateAdded: new Date().toString(), 
-                    expirationDate: expirationDate.toString(), 
+                let payload = {
+                    ...foodData,
+                    dateAdded: new Date().toString(),
+                    expirationDate: expirationDate.toString(),
                     quantity: 1,
-                    adding: true 
+                    adding: true
                 };
                 navigation.navigate("Item", payload)
             }
@@ -144,10 +159,14 @@ export default function FridgeScreen({ navigation }: any) {
                         placeholder="Search to find"
                         backgroundColor="#ECECEC"
                     />
-                    <Ionicons name="cart-outline"
-                        size={30}
-                        ml="10"
-                        color="black" />
+                    <IconButton
+                        icon={
+                            <Ionicons name="cart-outline"
+                                size={30}
+                                ml="10"
+                                color="black" />}
+                        onPress={() => getInventory()}
+                    />
                 </HStack>
                 <HStack space={2} justifyContent="center">
                     <Button p="2" backgroundColor={filter === 'fridge' ? "#D7D1D1" : "white"} _text={{ color: 'black' }}
@@ -182,7 +201,7 @@ export default function FridgeScreen({ navigation }: any) {
                                 return (
                                     <TouchableOpacity onPress={() => itemScreen(e)}>
                                         <Center width={75} height={75} backgroundColor={e.color} borderRadius={30}>
-                                            <Image alt={e._id} src={ e.imageUrl } width={"80%"} height={"80%"} resizeMode="contain" />
+                                            <Image alt={e._id} src={e.imageUrl} width={"80%"} height={"80%"} resizeMode="contain" />
                                         </Center>
                                     </TouchableOpacity>
                                 );

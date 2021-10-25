@@ -52,7 +52,6 @@ export default function ItemScreen({ navigation, route }: RootStackScreenProps<'
             foodID: id,
         }
         let response = await addFood(payload);
-        console.log(response);
         navigation.navigate("Root");
     }
 
